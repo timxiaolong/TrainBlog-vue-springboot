@@ -4,6 +4,7 @@ import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
+  <router-view></router-view>
 </template>
 
 <style scoped>
