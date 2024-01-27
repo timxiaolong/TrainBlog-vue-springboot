@@ -1,112 +1,21 @@
-<script setup lang="ts">
-import { reactive, ref,onMounted } from 'vue'
-import router from '../router/index'
-import { login } from '@/api/Login'
-import { tokenStore,accountStore } from '@/store/modules/user'
-import { loginReq } from '@/api/types/loginReq'
-import type { FormInstance } from 'element-plus'
-import { encode,decode  } from 'js-base64'
+<script>
 export default {
   name: "Login",
-data() {
-  return {
-    user: {
-      account:'',
-      password:'',
-      verifyCode:'',
+  data() {
+    return {
+      user: {
+        account: '',
+        password: '',
+        verifyCode: '',
+      }
     }
   }
 }
-//from表单校验
-// const ruleFormRef = ref<FormInstance>()
-// // 这里存放数据
-// const user = reactive < loginReq > ({
-//   account: '',
-//   password: '',
-//   verifyCode:''
-// })
-// const users = reactive < loginReq > ({
-//   account: '',
-//   password: '',
-//   verifyCode:''
-// })
-// //校验
-// const validatePassword = (rule: any, value: any, callback: any) => {
-//   if (value === '') {
-//     callback(new Error('请输入密码'))
-//   } else {
-//     callback()
-//   }
-// }
-// const validateAccount = (rule: any, value: any, callback: any) => {
-//   if (value === '') {
-//     callback(new Error('请输入账号'))
-//   }  else {
-//     callback()
-//   }
-// }
-// const validateVerification = (rule: any, value: any, callback: any) => {
-//   if (value === '') {
-//     callback(new Error('请输入验证码'))
-//   }  else {
-//     callback()
-//   }
-// }
-// //校验
-// const rules = reactive({
-//   password: [{ validator: validatePassword, trigger: 'blur' }],
-//   account: [{ validator: validateAccount, trigger: 'blur' }],
-//   verifyCode:[{ validator: validateVerification, trigger: 'blur' }],
-// })
-// const changeRegist = () => {
-//   router.replace('/regist')
-// }
-// let imgUrl=ref("http://localhost:8080/api/login/verifyCode?time="+new Date());
-// const resetImg=()=>{
-//   imgUrl.value = "http://localhost:8080/api/login/verifyCode?time="+new Date();
-// }
-//
-// const onSubmit = (formEl: FormInstance | undefined) => {
-//   if (!formEl) return
-//   formEl.validate((valid) => {
-//     if (valid) {
-//       Object.keys(user).forEach((key)=>{
-//         if(key=='account'||key=='password'){
-//           users[key]=encode(user[key])
-//         }else{
-//           users[key]=user[key]
-//         }
-//       })
-//       login( users ).then((res) => {
-//         if (res.data.code == 90000) {
-//           ElMessage({
-//             message: '登录成功',
-//             type: 'success'
-//           })
-//           // 把信息存储到全局变量中
-//           tokenStore().setToken(res.data.data.token)
-//           accountStore().setAccount(res.data.data.account)
-//           // 2. 跳转到  elem 后台！！！
-//           router.push('/homePage')
-//           // window.location.href="../../../public/backgroudhtml/backgroud.html"
-//         } else {
-//           ElMessage.error("账号或验证码错误！")
-//         }
-//       }).catch(error=>{
-//         ElMessage.error("账号或验证码错误！")
-//       })
-//     } else {
-//       ElMessage.error("错误的提交！")
-//       return false
-//     }
-//   })
-}
-}
+
 </script>
 
 <template>
-  <div class="login"> //全局样式class
-    //登录框
+  <div class="login">
     <div class="loginPart">
       <h2>用户登录</h2>
       <el-form
@@ -126,11 +35,11 @@ data() {
         </el-form-item>
         <el-form-item label="验证码：" prop="verifyCode">
           <el-input style="width: 150px;" v-model="user.verifyCode" placeholder="请输入验证码" maxlength="4" clearable />
-          <img class="verifyCodeImg" :src="imgUrl" @click="resetImg">
+<!--          <img class="verifyCodeImg" :src="" @click="">-->
         </el-form-item>
-        <el-button class="btn" type="primary"  @click="onSubmit(ruleFormRef)">登录</el-button>
+        <el-button class="btn" type="primary"  @click="">登录</el-button>
         <div style="text-align: right;transform:translate(0,30px);">
-          <el-link type="warning" @click="changeRegist">没有账号？去注册</el-link>
+          <el-link type="warning" @click="">没有账号？去注册</el-link>
         </div>
       </el-form>
     </div>
@@ -163,7 +72,7 @@ data() {
   /*实现块元素百分比下居中*/
   width:450px;
   padding:50px;
-  background: rgba(255,204,255,.3);
+  background: rgba(255,184,81,0.44);
   /*背景颜色为黑色，透明度为0.8*/
   box-sizing:border-box;
   /*box-sizing设置盒子模型的解析模式为怪异盒模型，

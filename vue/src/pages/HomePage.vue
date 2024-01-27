@@ -28,6 +28,11 @@ export default {
         console.log(result)
         this.buttons = result.data
       })
+    },
+    toLogin(){
+      this.$router.push({
+        path:`/login`
+      })
     }
   },
   mounted() {
