@@ -1,26 +1,32 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import HomePage from "@/pages/HomePage.vue";
-import HomePageContent from "@/pages/HomePageContent.vue";
 import Login from "@/pages/Login.vue";
 import SignUp from "@/pages/SignUp.vue";
+import HomePageBar from "@/pages/HomePageBar.vue";
 
 const router = createRouter({
     history:createWebHashHistory(),
     routes:[
         {
             path:'/',
-            component:HomePage,
-            redirect:'/Content',
+            redirect:'/home'
+        },
+        {
+            path:'/home',
+            name:'HomePageBar',
+            component:HomePageBar,
+            redirect:'/home/HomePage',
             children:[
                 {
-                    path:'Content',
-                    component:HomePageContent
+                    path:'HomePage',
+                    name:'HomePage',
+                    component:HomePage
                 }
             ]
         },
         {
             path:'/login',
-            component:Login
+            component:Login,
         },
         {
             path:'/SignUp',

@@ -1,21 +1,9 @@
-<script>
-export default {
-  name: "Login",
-  data() {
-    return {
-      user: {
-        account: '',
-        password: '',
-        verifyCode: '',
-      }
-    }
-  }
-}
 
-</script>
 
 <template>
+
   <div class="login">
+    <div class="login__particles"></div>
     <div class="loginPart">
       <h2>用户登录</h2>
       <el-form
@@ -34,17 +22,74 @@ export default {
           <el-input v-model="user.password" type="password" placeholder="请输入密码" maxlength="20" show-password clearable />
         </el-form-item>
         <el-form-item label="验证码：" prop="verifyCode">
-          <el-input style="width: 150px;" v-model="user.verifyCode" placeholder="请输入验证码" maxlength="4" clearable />
-<!--          <img class="verifyCodeImg" :src="" @click="">-->
+          <el-input style="width: 150px;" v-model="user.verifyCode" placeholder="请输入验证码" maxlength="6" clearable />
+          <el-button style="width: 90px;margin-left: 10px" type="primary" @click = sendMessage()>发送验证码</el-button>
         </el-form-item>
-        <el-button class="btn" type="primary"  @click="">登录</el-button>
+        <el-button class="btn" type="primary"  @click="login()">登录</el-button>
         <div style="text-align: right;transform:translate(0,30px);">
-          <el-link type="warning" @click="">没有账号？去注册</el-link>
+          <el-link type="warning" @click="toSignUp()">没有账号？去注册</el-link>
         </div>
       </el-form>
     </div>
   </div>
 </template>
+
+<script>
+import axios from "axios";
+import HomePageBar from "@/pages/HomePageBar.vue";
+
+export default {
+  name: "Login",
+  data() {
+    return {
+      user: {
+        account: '',
+        password: '',
+        verifyCode: '',
+      },
+      generateCode:'',
+    }
+  },
+  components:{
+    HomePageBar
+  },
+  methods:{
+    sendMessage(){
+      const param = Math.floor(Math.random()*(1000000-100000+1))+100000
+      this.generateCode = param.toString();
+      axios({
+        url:'http://localhost:8080/user/sendShortMessage',
+        method:'POST',
+        data:{
+          templatecode:"SMS_464960193",
+          phonenumbers:"17614025077",
+          templateparam:this.generateCode,
+        }
+      }).then(result =>{
+        console.log(result)
+        if (result.data.code === 'OK'){
+          this.$message.success('短信发送成功，请注意查收')
+        }else {
+          this.$message.error('发送失败，请稍后重试')
+        }
+      })
+    },
+    login(){
+      if (this.generateCode !== this.user.verifyCode){
+        this.$message.error('验证码输入错误')
+      }else {
+        this.$message.success('验证码正确')
+      }
+    },
+    toSignUp(){
+      this.$router.push({
+        path:`/SignUp`
+      })
+    }
+  }
+}
+
+</script>
 
 <style scoped>
 .login {
@@ -57,7 +102,7 @@ export default {
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  //background-image: url('@/assets/0001.jpg');
+  background-image: url('@/img/LoginImg.jpg');
   opacity:0.9;
   position:fixed;
   pointer-events: none;
@@ -72,7 +117,7 @@ export default {
   /*实现块元素百分比下居中*/
   width:450px;
   padding:50px;
-  background: rgba(255,184,81,0.44);
+  background-color: rgba(255,255,255,70%);
   /*背景颜色为黑色，透明度为0.8*/
   box-sizing:border-box;
   /*box-sizing设置盒子模型的解析模式为怪异盒模型，
@@ -85,7 +130,7 @@ export default {
 h2{
   margin:0 0 30px;
   padding:0;
-  color: #fff;
+  color: #545558;
   text-align:center;
   /*文字居中*/
 }
