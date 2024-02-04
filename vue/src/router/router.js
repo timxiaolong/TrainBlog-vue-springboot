@@ -21,17 +21,17 @@ const router = createRouter({
                     path:'HomePage',
                     name:'HomePage',
                     component:HomePage
+                },
+                {
+                    path:'login',
+                    component:Login,
+                },
+                {
+                    path:'SignUp',
+                    component:SignUp
                 }
             ]
         },
-        {
-            path:'/login',
-            component:Login,
-        },
-        {
-            path:'/SignUp',
-            component:SignUp
-        }
     ]
 })
 export default router

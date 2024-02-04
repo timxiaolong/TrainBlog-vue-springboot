@@ -5,11 +5,11 @@
       mode="horizontal"
       :ellipsis="false"
   >
-    <el-menu-item index="0">
+    <el-menu-item index="0" @click = "toMenu()">
       <img
           style="width: 200px"
           src="../img/Title.png"
-          alt="Element logo"
+          alt="logo"
       />
     </el-menu-item >
     <el-menu-item v-for = "(button,index) in buttons"
@@ -74,7 +74,12 @@ export default {
     },
     toLogin(){
       this.$router.push({
-        path:`/login`
+        path:`/home/login`
+      })
+    },
+    toMenu(){
+      this.$router.push({
+        path:`/`
       })
     }
   },

@@ -83,7 +83,7 @@ export default {
     },
     toSignUp(){
       this.$router.push({
-        path:`/SignUp`
+        path:`/home/SignUp`
       })
     }
   }
